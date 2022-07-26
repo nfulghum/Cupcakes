@@ -36,7 +36,7 @@ def create_cupcake():
     return (response_json, 201)
 
 
-@app.route('/api/cupcakes/<int:id>')
+@app.route('/api/cupcakes/<int:id>', methods=["PATCH"])
 def update_cupcake(id):
     cupcake = Cupcake.query.get_or_404(id)
 
@@ -51,3 +51,7 @@ def update_cupcake(id):
 
 @app.route('/api/cupcakes/<int:id>', methods=["DELETE"])
 def delete_cupcake(id):
+    cupcake = Cupcake.query.get_or_404(id)
+    db.session.delete(cupcake)
+    db.session.commit()
+    return jsonify(message="Deleted cupcake")
