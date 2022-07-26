@@ -12,6 +12,13 @@ app.config['SECRET_KEY'] = "mishacat123"
 connect_db(app)
 
 
+@app.route('/')
+def index_page():
+    """Renders page"""
+    cupcakes = Cupcake.query.all()
+    return render_template('index.html', cupcakes=cupcakes)
+
+
 @app.route('/api/cupcakes')
 def get_cupcakes():
     all_cupcakes = [cupcake.serialize() for cupcake in Cupcake.query.all()]
